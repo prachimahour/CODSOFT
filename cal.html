@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <style>
+     body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #3498db, #2980b9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .calculator {
+      background-color: #333;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+      padding: 30px;
+      text-align: center;
+    }
+
+    #display {
+      font-size: 38px;
+      margin-bottom: 30px;
+      padding: 25px;
+      border-radius: 10px;
+      background-color: #fbf9f9;
+      color: #100f0f;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .button {
+      padding: 20px;
+      font-size: 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #ddd;
+      color: #000;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.15s, box-shadow 0.15s, background-color 0.15s;
+    }
+
+    .para{
+        margin-bottom: 3%;
+        margin-top: -2%;
+        text-align: left;
+        color: #fff;
+    }
+
+    .number {
+      background-color: #444;
+      color: #fff;
+    }
+
+    .number:hover {
+      background-color: #3b3b3b;
+      transform: translateY(-3px);
+    }
+
+    .operator {
+      background-color: #f3a531;
+      color: #fff;
+    }
+
+    .operator:hover {
+      background-color: #fa8729;
+      transform: translateY(-3px);
+    }
+
+    .equal {
+      grid-column: span 2;
+      background-color: #00cc66;
+      color: #fff;
+    }
+
+    .equal:hover {
+      background-color: #108e04;
+      transform: translateY(-3px);
+    }
+
+    .info-button {
+      padding: 20px;
+      font-size: 24px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #777;
+      color: #fff;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.15s, box-shadow 0.15s, background-color 0.15s;
+    }
+
+    .info-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      background-color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <p class="para" style="word-spacing: 10cm;">CASIO MJ-100DA</p>
+    <input type="text" id="display" disabled>
+    <div class="buttons">
+         <button class="button number" onclick="appendToDisplay('7')">7</button>
+        <button class="button number" onclick="appendToDisplay('8')">8</button>
+        <button class="button number" onclick="appendToDisplay('9')">9</button>
+        <button class="button operator" onclick="appendToDisplay('+')">+</button>
+        <button class="button number" onclick="appendToDisplay('4')">4</button>
+        <button class="button number" onclick="appendToDisplay('5')">5</button>
+        <button class="button number" onclick="appendToDisplay('6')">6</button>
+        <button class="button operator" onclick="appendToDisplay('-')">-</button>
+        <button class="button number" onclick="appendToDisplay('1')">1</button>
+        <button class="button number" onclick="appendToDisplay('2')">2</button>
+        <button class="button number" onclick="appendToDisplay('3')">3</button>
+        <button class="button operator" onclick="appendToDisplay('*')">*</button>
+        <button class="button number" onclick="appendToDisplay('0')">0</button>
+        <button class="button operator" onclick="appendToDisplay('.')">.</button>
+        <button class="button operator" onclick="clearDisplay()">C</button>
+        <button class="button operator" onclick="appendToDisplay('%')">%</button>
+        <button class="button operator equal" onclick="calculate()">=</button>
+        <button class="button operator" onclick="appendToDisplay('/')">/</button>
+      <button class="button info-button" onclick="showMadeBy()">ℹ️</button>
+    </div>
+  </div>
+  <script>
+    let display = document.getElementById('display');
+
+    function appendToDisplay(value) {
+      display.value += value;
+    }
+
+    function calculate() {
+      try {
+        display.value = eval(display.value);
+      } catch (error) {
+        display.value = 'Error';
+      }
+    }
+
+    function clearDisplay() {
+      display.value = '';
+    }
+
+    function showMadeBy() {
+      display.value = "Made by Prachi";
+    }
+
+    document.addEventListener('keydown', function(event) {
+      const key = event.key;
+      if (key === 'Enter') {
+        calculate();
+      } else if (key === 'Backspace') {
+        clearDisplay();
+      } else if (key === '%') {
+        appendToDisplay(key);
+      } else if (/[\d+\-*/.%]/.test(key)) {
+        appendToDisplay(key);
+      }
+    });
+  </script>
+</body>
+</html>
